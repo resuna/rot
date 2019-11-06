@@ -291,6 +291,7 @@ drops()
                                         vuscreen[line][column];
                                 nuscreen[line][column] = ' ';
                                 column--;
+				drop(line+1, column); /* THUMP */
                         }
                         else if(column<co-1 &&
                                 nuscreen[line][column+1] == ' ' &&
@@ -299,6 +300,7 @@ drops()
                                                 vuscreen[line][column];
                                         nuscreen[line][column] = ' ';
                                         column++;
+				drop(line+1, column); /* THUMP */
                         }
                         else { /* Nope, quit dropping this one */
                                 vuscreen[line][column] &= ~0200;
@@ -313,6 +315,7 @@ drops()
                                         vuscreen[line][column];
                                 nuscreen[line][column] = ' ';
                                 column++;
+				drop(line+1, column); /* THUMP */
                         }
                         else if(column>0 && nuscreen[line][column-1] == ' ' &&
                             nuscreen[line+1][column-1]==' ') {
@@ -320,12 +323,14 @@ drops()
                                         vuscreen[line][column];
                                 nuscreen[line][column] = ' ';
                                 column--;
+				drop(line+1, column); /* THUMP */
                         }
                         else {
 				/* can't drop, off list */
                                 nuscreen[line][column] &= ~0200;
                                 vuscreen[line][column] &= ~0200;
                                 hold -> c_mark = 1;
+				drop(line+2+(rand()&03), column); /* THUMP */
                         }
                 }
                 hold -> c_column = column;
