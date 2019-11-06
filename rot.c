@@ -27,6 +27,7 @@ int min();
 
 
 int lastx, lasty;
+int badpos = 0;
 struct _c {
         struct _c *c_next;
         int c_line, c_column;
@@ -71,7 +72,7 @@ char c;
 #ifdef DEBUG
         _at(x, y);
 #else
-        if(y==lasty) {
+        if(badpos == 0 && y==lasty) {
                 if(x!=lastx) {
                         if(x<lastx && lastx-x<tglen)
                                 while(x<lastx) {
@@ -94,8 +95,7 @@ char c;
         if(c >= ' ' && c != '\177')
                 lastx++;
         if(lastx>=co) {
-                lastx -= co;
-                lasty++;
+		badpos = 1;
         }
 }
 
