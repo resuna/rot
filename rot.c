@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <term.h>
+#include <string.h>
+#include <stdlib.h>
 
 /* cc rot.c -O -o rot -ltermlib */
 
@@ -17,6 +19,12 @@
 
 #define SLEEP 0
 #define INSOMNIA 5
+
+void drop();
+void fdropf();
+void outs();
+int min();
+
 
 int lastx, lasty;
 struct _c {
@@ -41,7 +49,7 @@ int  li,                                                  /* lines on vuscreen *
 char vuscreen[MAXLI+1][MAXCOL];
 char nuscreen[MAXLI+1][MAXCOL];
 
-main(ac, av)
+int main(ac, av)
 int ac;
 char **av;
 {
@@ -53,6 +61,7 @@ char **av;
         else
                 fdropf(stdin);
         tend();
+	return 0;
 }
 
 at(x, y, c)
@@ -98,7 +107,7 @@ int x, y;
         lasty = y;
 }
 
-fixpad(s)
+void fixpad(s)
 char *s;
 {
 	char *t = s;
@@ -149,7 +158,7 @@ tend()
         fflush(stdout);
 }
 
-readscreen(fp)
+void readscreen(fp)
 FILE *fp;
 {
         int line, column, p;
@@ -226,7 +235,7 @@ update() /* copy new vuscreen back to old vuscreen */
                         }
 }
 
-drop(line, column)
+void drop(line, column)
 int line, column;
 {
         struct _c *hold;
@@ -406,7 +415,7 @@ char *file;
         } fdropf(fp);
 }
 
-fdropf(fp)
+void fdropf(fp)
 FILE *fp;
 {
         int i;
@@ -420,7 +429,7 @@ FILE *fp;
         }
 }
 
-outs(s)
+void outs(s)
 char *s;
 {
         if (s) fputs(s, stdout);
