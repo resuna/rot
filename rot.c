@@ -105,6 +105,7 @@ int x, y;
         outs(tgoto(cm, x, y));
         lastx = x;
         lasty = y;
+	badpos = 0;
 }
 
 void fixpad(s)
