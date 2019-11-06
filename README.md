@@ -19,3 +19,10 @@ cc rot.c -O -o rot -lcurses
 
 Because most systems don't have a separate TERMCAP library any more.
 
+### Notes
+
+This is still a Version 6 C program, and might even build on a PDP-11 in 1978 if you happen to have a
+time machine. This means there's a boatload of warnings due to the pre-ANSI function definitions. Deal with
+them. I will accept pull requests for this but they'll be tossed into a seprate branch because this silly
+thing is a historical artifact.
+

@@ -105,6 +105,7 @@ int x, y;
         outs(tgoto(cm, x, y));
         lastx = x;
         lasty = y;
+	badpos = 0;
 }
 
 void fixpad(s)
@@ -409,7 +410,7 @@ dropscreen()
         } while(rubbish);
 }
 
-dropf(file)
+int dropf(file)
 char *file;
 {
         FILE *fp;
@@ -417,7 +418,9 @@ char *file;
         if(!(fp = fopen(file, "r"))) {
                 perror(file);
                 return -1;
-        } fdropf(fp);
+        }
+	fdropf(fp);
+	return 0;
 }
 
 void fdropf(fp)
@@ -440,7 +443,7 @@ char *s;
         if (s) fputs(s, stdout);
 }
 
-min(a, b)
+int min(a, b)
 int a, b;
 {
         if(a<b) return a;
