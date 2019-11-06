@@ -234,6 +234,7 @@ update() /* copy new vuscreen back to old vuscreen */
                                         at(c, l, nuscreen[l][c]);
                                 vuscreen[l][c] = nuscreen[l][c];
                         }
+	_at(co-1,li-1);
 }
 
 void drop(line, column)
