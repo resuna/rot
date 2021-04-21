@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <curses.h>
 #include <term.h>
 #include <string.h>
 #include <stdlib.h>
 
 /* cc rot.c -O -o rot -ltermlib */
+
 
 /*              -- Miscellaneous defines --                                  */
 #define FALSE 0
@@ -21,10 +23,11 @@
 #define INSOMNIA 5
 
 void drop();
+int dropf();
 void fdropf();
 void outs();
 int min();
-
+int _at();
 
 int lastx, lasty;
 int badpos = 0;
@@ -50,6 +53,11 @@ int  li,                                                  /* lines on vuscreen *
 char vuscreen[MAXLI+1][MAXCOL];
 char nuscreen[MAXLI+1][MAXCOL];
 
+#ifdef NO_TERMINFO
+int tinit();
+int tend();
+#endif
+
 int main(ac, av)
 int ac;
 char **av;
@@ -65,7 +73,7 @@ char **av;
 	return 0;
 }
 
-at(x, y, c)
+void at(x, y, c)
 int x, y;
 char c;
 {
@@ -215,13 +223,6 @@ FILE *fp;
                 nuscreen[line][column] = vuscreen[li][column] = '*';
 }
 
-drawscreen()
-{
-        lastx = lasty = 0;
-        outs(cl);
-        update();
-}
-
 update() /* copy new vuscreen back to old vuscreen */
 {
         int l, c;
@@ -235,6 +236,13 @@ update() /* copy new vuscreen back to old vuscreen */
                                 vuscreen[l][c] = nuscreen[l][c];
                         }
 	_at(co-1,li-1);
+}
+
+drawscreen()
+{
+        lastx = lasty = 0;
+        outs(cl);
+        update();
 }
 
 void drop(line, column)
