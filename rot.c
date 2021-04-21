@@ -11,8 +11,13 @@
 /*              -- Miscellaneous defines --                                  */
 #define FALSE 0
 #define TRUE 1
+#ifndef BIGMEM
 #define MAXCOL 80
 #define MAXLI 24
+#else
+#define MAXCOL 1000
+#define MAXLI 1000
+#endif
 
 #define USLEEP 50000L
 #if USLEEP > 0
